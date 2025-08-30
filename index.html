@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Vamos a ir mañana 🙂?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-family: sans-serif;
+            background-color: #fff;
+            color: #000;
+            transition: background-color 0.5s ease;
+            overflow: hidden; /* Para ocultar barras de desplazamiento si el video es más grande */
+        }
+
+        .container {
+            padding: 20px;
+            position: relative; /* Necesario para que el texto y botones estén por encima del video */
+            z-index: 2; /* Para que el contenido sea visible sobre el video */
+        }
+
+        h1 {
+            font-size: 2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sombra para mejor visibilidad sobre fondos cambiantes */
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: 2px solid #000;
+            margin: 0 10px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+
+        #si {
+            background-color: #000;
+            color: #fff;
+        }
+
+        #no {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Estilos para el video de fondo de lluvia */
+        #rain-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            transform: translateX(-50%) translateY(-50%);
+            background-size: cover;
+            opacity: 0; /* Empieza invisible */
+            transition: opacity 1s ease-in-out;
+        }
+
+        .gifs-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .gifs-container img {
+            max-width: 150px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+
+<video autoplay muted loop id="rain-video" class="hidden" poster="https://media.giphy.com/media/y7zMQ2pUKOpLNtHJhF/giphy.gif">
+  <source src="" type="video/mp4">
+  Tu navegador no soporta el tag de video.
+</video>
+
+    <div class="container" id="initial-screen">
+        <h1>¿Vamos a ir mañana 🙂?</h1>
+        <div class="buttons">
+            <button id="si" onclick="showYes()">Sí</button>
+            <button id="no" onclick="showNo()">No</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="yes-screen">
+        <h1>Más te vale 🤭</h1>
+        <div class="gifs-container">
+            <img src="https://media.giphy.com/media/tHIRLHtNwxpjIFqPdV/giphy.gif" alt="Gato feliz">
+            <img src="https://media.giphy.com/media/l3vRlT2k2L35Cnn5C/giphy.gif" alt="Perro feliz saltando">
+            <img src="https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif" alt="Gato feliz bailando">
+        </div>
+    </div>
+
+    <div class="container hidden" id="no-screen">
+        <h1>ya vez como sos puerca 🐖🐖</h1>
+        <div class="gifs-container">
+            <img src="https://media.giphy.com/media/OPU6wzx8JrHna/giphy.gif" alt="Perro triste">
+            <img src="https://media.giphy.com/media/xFnyJDPKOcqcH57m7e/giphy.gif" alt="Gato triste">
+            <img src="https://media.giphy.com/media/h4ZWnclHw9UQLPvdBc/giphy.gif" alt="Perro con cara de tristeza">
+        </div>
+    </div>
+
+    <script>
+        const rainVideo = document.getElementById('rain-video');
+
+        function showYes() {
+            document.body.style.backgroundColor = 'pink';
+            document.getElementById('initial-screen').classList.add('hidden');
+            document.getElementById('yes-screen').classList.remove('hidden');
+            document.getElementById('no-screen').classList.add('hidden');
+            rainVideo.classList.add('hidden'); // Oculta el video de lluvia
+            rainVideo.pause(); // Pausa el video para que no consuma recursos
+        }
+
+        function showNo() {
+            document.body.style.backgroundColor = 'grey';
+            document.getElementById('initial-screen').classList.add('hidden');
+            document.getElementById('yes-screen').classList.add('hidden');
+            document.getElementById('no-screen').classList.remove('hidden');
+
+            rainVideo.classList.remove('hidden'); // Muestra el video de lluvia
+            rainVideo.style.opacity = '1'; // Asegura que el video sea visible
+            rainVideo.play(); // Reproduce el video
+        }
+    </script>
+
+</body>
+</html>
